@@ -50,6 +50,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:background="?attr/colorBackgroundFloating"
+        android:transcriptMode="alwaysScroll"
         app:layout_constraintBottom_toTopOf="@+id/dice_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

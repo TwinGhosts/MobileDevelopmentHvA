@@ -95,7 +95,6 @@ public class HigherLowerActivity extends AppCompatActivity {
             Snackbar.make(view, "You guessed correctly! +1 score", Snackbar.LENGTH_SHORT)
                     .setAction("Action", null).show();
         } else {
-            score = 0;
             previousRollAdapter.clear();
 
             // Show a message based on whether the user beat the hiscore or not and change the hiscore when the user did
@@ -107,7 +106,9 @@ public class HigherLowerActivity extends AppCompatActivity {
                 Snackbar.make(view, "You guessed incorrectly and You didn't beat your hiScore", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
             }
+            score = 0;
         }
+        updateUI();
     }
 
     private void initDiceImageViewList(){
@@ -125,6 +126,7 @@ public class HigherLowerActivity extends AppCompatActivity {
         highScoreText.setText("High-Score: " + hiScore);
         diceImageView.setImageDrawable(diceImageViewList.get(currentRoll-1));
         previousRollList.setAdapter(previousRollAdapter);
+        previousRollList.setSelection(previousRollAdapter.getCount() - 1);
         previousRollAdapter.notifyDataSetChanged();
     }
 }
