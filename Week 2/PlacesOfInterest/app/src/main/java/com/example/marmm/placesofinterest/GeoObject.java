@@ -4,10 +4,11 @@ package com.example.marmm.placesofinterest;
  * Created by marmm on 02/11/2017.
  */
 
-
 public class GeoObject {
+
     private String mGeoName;
     private int mGeoImageName;
+
     public GeoObject(String mGeoName, int mGeoImageName) {
         this.mGeoName = mGeoName;
         this.mGeoImageName = mGeoImageName;
@@ -61,7 +62,6 @@ public class GeoObject {
 
 
     public static final int[] PRE_DEFINED_GEO_OBJECT_IMAGE_IDS = {
-
             R.drawable.amsterdam_dam,
             R.drawable.amsterdam_weesperplein,
             R.drawable.rotterdam_euromast,
