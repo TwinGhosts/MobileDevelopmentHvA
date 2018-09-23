@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Geo Guess Swipe</string>
+    <string name="display_text">Guess whether the images are taken in Europe or not. Swipe the images to the left for no and right for yes. Each correct answer rewards you with a point.</string>
+    <string name="wrong_guess">Correct!</string>
+    <string name="correct_guess">Wrong!</string>
+    <string name="end_game_text">Well done! You\'ve finished the game. Your score is: </string>
+    <string name="end_game_restart_text">Restart</string>
+</resources>
