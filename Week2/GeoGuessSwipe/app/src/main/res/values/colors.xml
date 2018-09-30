@@ -7,4 +7,5 @@
     <color name="PrimaryColorTeal">#024a43</color>
     <color name="foreground_material_light">#ffffff</color>
     <color name="SecondaryColorTeal">#18736a</color>
+    <color name="LightTeal">#ffffff</color>
 </resources>

@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/PrimaryColorTeal</item>
         <item name="colorPrimaryDark">@color/colorBackground</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:colorBackground">@color/SecondaryColorTeal</item>
+        <item name="android:colorBackground">@color/LightTeal</item>
         <item name="android:textColorPrimary">@android:color/background_light</item>
         <item name="android:textColorSecondary">?attr/actionMenuTextColor</item>
         <item name="android:colorForeground">@color/foreground_material_light</item>

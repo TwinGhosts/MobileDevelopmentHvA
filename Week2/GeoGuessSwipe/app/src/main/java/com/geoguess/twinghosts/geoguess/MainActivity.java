@@ -74,12 +74,8 @@ public class MainActivity extends AppCompatActivity {
 
         // When the user has swiped correctly, add score and show a message
         Toast.makeText(getApplicationContext(),(hasAnsweredCorrectly) ? R.string.correct_guess : R.string.wrong_guess, Toast.LENGTH_SHORT).show();
-        score += (hasAnsweredCorrectly) ? 1 : 0;
+        score += (hasAnsweredCorrectly) ? 0 : 1;
         scoreTextView.setText("Score: " + score + "/" + scoreMax);
-
-        // Finish the game when all of the geoObjects are removed from the list
-        if(geoObjects.isEmpty())
-            finishGame();
     }
 
     /**
@@ -125,5 +121,9 @@ public class MainActivity extends AppCompatActivity {
     private void removeItem(int position) {
         geoObjects.remove(position);
         adapter.notifyItemRemoved(position);
+
+        // Finish the game when all of the geoObjects are removed from the list
+        if(geoObjects.isEmpty())
+            finishGame();
     }
 }
