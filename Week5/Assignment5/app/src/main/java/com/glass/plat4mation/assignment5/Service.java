@@ -1,13 +1,6 @@
 package com.glass.plat4mation.assignment5;
 
-import android.util.Log;
-
-import java.util.Calendar;
-import java.util.Random;
-
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
@@ -37,36 +30,13 @@ public class Service {
          * refer to it in a browser and try. This request will deliver a json stream based on month and
          * day of month. It will be put in a DayQuoteTime object by Retrofit.
          */
-        @GET("/{month}/{dayOfMonth}/date?json")
+        @GET("/{number}?json")
 
         /**
          * "DayQuoteTime" is the name of the helper class just defined, defining the datamodel, and given as argument.
          * "getTodaysQuote" is the name of the symbol get method. It can be chosen at wish, as long as it is invoked
          * with the same name.
          */
-        Call<Fact> getFact(@Path("month") int monthNumber, @Path("dayOfMonth") int dayOfMonth);
-    }
-
-    private void requestFact(int number)
-    {
-        NumbersApiService service = NumbersApiService.retrofit.create(NumbersApiService.class);
-        int randomNumber = new Random().nextInt();
-
-        /**
-         * Make an a-synchronous call by enqueuing and definition of callbacks.
-         */
-        Call<Fact> call = service.getFact(month, dayOfMonth);
-        call.enqueue(new Callback<Fact>() {
-
-            @Override
-            public void onResponse(Call<Fact> call, Response<Fact> response) {
-                Fact fact = response.body();
-            }
-
-            @Override
-            public void onFailure(Call<Fact> call, Throwable t) {
-                Log.d("error",t.toString());
-            }
-        });
+        Call<Fact> getFact(@Path("number") int factNumber);
     }
 }
