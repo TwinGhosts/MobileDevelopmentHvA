@@ -30,8 +30,8 @@ public class FactAdapter extends ArrayAdapter {
 
         Fact currentFact = factList.get(position);
 
-        TextView name = listItem.findViewById(R.id.fact_number);
-        name.setText(currentFact.getNumber());
+        TextView name = (TextView) listItem.findViewById(R.id.fact_number);
+        name.setText(currentFact.getNumber().toString());
 
         TextView release = listItem.findViewById(R.id.fact_text);
         release.setText(currentFact.getText());
