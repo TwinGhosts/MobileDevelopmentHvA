@@ -1,0 +1,112 @@
+package com.game.twinghosts.elementalclimber.Activities;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.view.Display;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.PopupWindow;
+
+import com.game.twinghosts.elementalclimber.R;
+
+import java.util.zip.Inflater;
+
+public class GameActivity extends Activity {
+
+    private GameView gameView;
+    private ConstraintLayout layout;
+    private PopupWindow pausePopup;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Make the game run fullscreen
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        // Set the control view
+        setContentView(R.layout.activity_ingame);
+
+        pausePopup = new PopupWindow(this);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(this.LAYOUT_INFLATER_SERVICE);
+        View pauseView = inflater.inflate(R.layout.pause_menu, null, false);
+        pausePopup.setContentView(pauseView);
+        pausePopup.setAnimationStyle(R.style.PopUpAnimation);
+        pausePopup.setBackgroundDrawable(new ColorDrawable(
+                Color.TRANSPARENT));
+
+        // Create the game view and add it to the input layout
+        layout = findViewById(R.id.game_constraint_layout);
+        gameView = new GameView(this);
+        layout.addView(gameView);
+
+        gameView.setMovementButtons(
+                (FloatingActionButton)findViewById(R.id.button_move_left),
+                (FloatingActionButton)findViewById(R.id.button_move_right),
+                (FloatingActionButton)findViewById(R.id.button_jump)
+        );
+
+        pauseView.findViewById(R.id.button_resume).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        gameView.pause(false);
+                        pausePopup.dismiss();
+                    }
+                }
+        );
+
+        pauseView.findViewById(R.id.button_pause_quit).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent mainMenuIntent = new Intent(GameActivity.this, MainActivity.class);
+                        finish();
+                        startActivity(mainMenuIntent);
+                    }
+                }
+        );
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
+                && keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            onBackPressed();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        // Show menu to ask whether the player wants to quit or resume
+        if(!gameView.gameIsPaused()) {
+            Display display = getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+
+            gameView.pause(true);
+            pausePopup.showAtLocation(layout, Gravity.CENTER, 0, 0);
+            pausePopup.update(0, 0, size.x, size.y);
+        } else {
+            gameView.pause(false);
+            pausePopup.dismiss();
+        }
+    }
+}

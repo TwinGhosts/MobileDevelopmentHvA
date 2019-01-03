@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Crossover Crusher</string>
+
+    <string name="pause_menu_title">Paused</string>
+
+    <string name="button_start">New Game</string>
+    <string name="button_hi_scores">Hi-Scores</string>
+    <string name="button_quit">Quit</string>
+    <string name="button_resume">Resume</string>
+    <string name="button_back">Back</string>
+    <string name="button_restart">Restart</string>
+
+    <string name="credits">Created by Joeri Vervaat</string>
+
+    <string name="hi_score_all_time">All Time</string>
+    <string name="hi_score_today">Today</string>
+    <string name="hi_score_week">This Week</string>
+    <string name="hi_score_month">This Month</string>
+
+    <string name="lose_menu_title">You lost</string>
+    <string name="submit_score">Submit score</string>
+    <string name="score_text">score: </string>
+
+</resources>

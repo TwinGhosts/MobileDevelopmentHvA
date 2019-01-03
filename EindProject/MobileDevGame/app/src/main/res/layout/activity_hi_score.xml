@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_menu_background">
+
+    <Button
+        android:id="@+id/button_back_hi_score"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_wide"
+        android:text="@string/button_back"
+        android:textColor="@color/button_color_main"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/hi_score_title"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:text="@string/button_hi_scores"
+        android:textAlignment="gravity"
+        android:textColor="@color/button_color_main"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/button_new_game"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/hi_score_listview"
+        android:layout_width="0dp"
+        android:layout_height="307dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/button_color_transparent"
+        android:outlineProvider="background"
+        app:layout_constraintBottom_toTopOf="@+id/button_back_hi_score"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/hi_score_next"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:background="@android:drawable/ic_media_play"
+        app:layout_constraintBottom_toTopOf="@+id/hi_score_listview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hi_score_title" />
+
+    <Button
+        android:id="@+id/hi_score_previous"
+        android:layout_width="49dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:background="@android:drawable/ic_media_previous"
+        app:layout_constraintBottom_toTopOf="@+id/hi_score_listview"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hi_score_title" />
+
+    <TextView
+        android:id="@+id/hi_score_category"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Today"
+        android:textAlignment="center"
+        android:textColor="#a60085"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/hi_score_listview"
+        app:layout_constraintEnd_toStartOf="@+id/hi_score_next"
+        app:layout_constraintStart_toEndOf="@+id/hi_score_previous"
+        app:layout_constraintTop_toBottomOf="@+id/hi_score_title" />
+</android.support.constraint.ConstraintLayout>
