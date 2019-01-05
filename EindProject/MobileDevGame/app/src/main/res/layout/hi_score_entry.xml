@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/main_menu_background"
+    android:background="@color/button_color_transparent"
     android:paddingBottom="8dp">
 
     <TextView
@@ -24,7 +24,7 @@
 
     <TextView
         android:id="@+id/hi_score_entry_score"
-        android:layout_width="171dp"
+        android:layout_width="174dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"

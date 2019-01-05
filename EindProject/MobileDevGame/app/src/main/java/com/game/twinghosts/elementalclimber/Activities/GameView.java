@@ -21,6 +21,7 @@ import android.view.WindowManager;
 import com.game.twinghosts.elementalclimber.Camera.Camera;
 import com.game.twinghosts.elementalclimber.Data.GameData;
 import com.game.twinghosts.elementalclimber.Data.GameManager;
+import com.game.twinghosts.elementalclimber.Data.HiScore;
 import com.game.twinghosts.elementalclimber.GameObjects.Player;
 import com.game.twinghosts.elementalclimber.GameObjects.Tiles.BasicTile;
 import com.game.twinghosts.elementalclimber.GameObjects.Tiles.TileSingle;
@@ -41,9 +42,13 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private CountDownTimer countDownTimer;
     private Vector2 screenSize;
     private boolean gameIsRunning = true;
+    private boolean gameIsLost = false;
+    private boolean showLostWindow = false;
 
-    private int difficultyTickTime = 250;
-    private int difficultyTimeReduction = 25;
+    private final int difficultyTickTime = 250;
+    private final int difficultyTimeReduction = 25;
+
+    private GameActivity context;
 
     private boolean gamePaused = false;
 
@@ -51,6 +56,10 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
         super(context);
 
         getHolder().addCallback(this);
+
+        GameData.hiScoreToStore = new HiScore("No Name", 0);
+
+        this.context = (GameActivity)context;
 
         // Store the screen width and height
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -69,7 +78,7 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         // Create the player
         player = new Player(BitmapFactory.decodeResource(getResources(), R.drawable.block_white), screenSize);
-        player.position = new Vector2(200, 200);
+        player.position = new Vector2(300, 100);
 
         // Run the game on a custom mainThread
         thread = new MainThread(getHolder(), this);
@@ -89,12 +98,12 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 player.update(gameManager);
                 camera.chaseTarget();
             }
-        } else {
-            if(player != null) {
-                countDownTimer.cancel();
-                player = null;
-                lose();
-            }
+        }
+
+        if(player != null && !player.getIsAlive()) {
+            countDownTimer.cancel();
+            player = null;
+            lose();
         }
     }
 
@@ -142,45 +151,12 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     private void createBlockMovementCounter(){
-        int veryLargeInt = 100000;
-        countDownTimer = new CountDownTimer(veryLargeInt * 1000, (long)GameData.clamp(difficultyTickTime - difficultyTimeReduction * gameManager.getDifficulty(), 125, 1000)) {
+        int veryLargeInt = 4;
+        countDownTimer = new CountDownTimer(veryLargeInt * 1000, 100) {
             public void onTick(long millisUntilFinished) {
                 // Score increment per tick
                 if(!gamePaused) {
-                    gameManager.incrementScore(GameManager.SCORE_INCREMENT_PER_BLOCK);
-
-                    // When there is a current block, drop it down
-                    if (gameManager.getCurrentTile() != null) {
-                        gameManager.getCurrentTile().position.y += GameData.BLOCK_SIZE;
-
-                        // Once the block has landed, set the current on to null to start creating a new one the next tick
-                        if (gameManager.getCurrentTile().position.y >= screenSize.y - GameData.BLOCK_SIZE * 2f) {
-                            gameManager.setCurrentTile(null);
-                        } else {
-                            // Loop through all of the tiles to check for collision
-                            for (BasicTile tile : gameManager.tiles) {
-                                if (tile != gameManager.getCurrentTile() && gameManager.getCurrentTile().nextCollisionRect().intersect(
-                                        new Rect(tile.collisionRectangle.left, tile.collisionRectangle.top - (int) GameData.BLOCK_SIZE, tile.collisionRectangle.right, tile.collisionRectangle.bottom - (int) GameData.BLOCK_SIZE))) {
-                                    gameManager.setCurrentTile(null);
-                                    return;
-                                }
-                            }
-                        }
-
-                        // When there is no current block, create a new one in a random lane
-                    } else {
-                        int index = new Random().nextInt(GameData.STAGE_WIDTH);
-                        createNextTile((int) (index * GameData.BLOCK_SIZE), (int) (-screenSize.y / 2f - GameData.BLOCK_SIZE * 2.33333f));
-                        gameManager.getCurrentTile().resizeImage(new Vector2(GameData.BLOCK_SIZE, GameData.BLOCK_SIZE));
-
-                        // Add score per block dropped
-                        gameManager.incrementScore(GameManager.SCORE_INCREMENT_PER_BLOCK);
-
-                        // Increase difficulty when 10 blocks have been placed
-                        if (gameManager.tiles.size() % GameData.DIFFICULTY_INCREASE_BLOCKS == 0) {
-                            gameManager.incrementDifficulty(1);
-                        }
-                    }
+                    GameData.hiScoreToStore.addScore(GameManager.SCORE_INCREMENT_PER_BLOCK);
                 }
             }
 
@@ -189,46 +165,6 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 createBlockMovementCounter();
             }
         }.start();
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    public void setMovementButtons(FloatingActionButton leftButton, FloatingActionButton rightButton, FloatingActionButton jumpButton){
-        leftButton.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(gameIsRunning && !gamePaused) {
-                    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
-                        player.moveLeft = true;
-                    else if (motionEvent.getAction() == MotionEvent.ACTION_UP)
-                        player.moveLeft = false;
-                    return false;
-                }
-                return false;
-            }
-
-        });
-
-        rightButton.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(gameIsRunning && !gamePaused) {
-                    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
-                        player.moveRight = true;
-                    else if (motionEvent.getAction() == MotionEvent.ACTION_UP)
-                        player.moveRight = false;
-                    return false;
-                }
-                return false;
-            }
-        });
-
-        jumpButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(gameIsRunning && gamePaused)
-                    player.jump();
-            }
-        });
     }
 
     private void drawFloorTiles(Canvas canvas){
@@ -253,14 +189,11 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     private void lose(){
-        // TODO show menu - RESTART, SUBMIT or QUIT
-        toHiScoreScreen();
-    }
-
-    private void toHiScoreScreen(){
-        Intent hiScoreIntent = new Intent(getContext(), PostGameActivity.class);
-        hiScoreIntent.putExtra("score", gameManager.getScore());
-        getContext().startActivity(hiScoreIntent);
+        if(!gameIsLost && !showLostWindow) {
+            showLostWindow = true;
+            gameIsLost = true;
+            context.showLoseWindow();
+        }
     }
 
     public void pause(boolean pause){

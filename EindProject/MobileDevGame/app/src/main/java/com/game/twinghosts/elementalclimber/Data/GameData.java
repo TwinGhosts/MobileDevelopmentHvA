@@ -10,6 +10,7 @@ public class GameData {
     public static float BLOCK_SIZE;
     public static final int DIFFICULTY_INCREASE_BLOCKS = 10;
     public static final int STAGE_WIDTH = 10;
+    public static HiScore hiScoreToStore;
 
     public static void setBlockSizeBasedOnResolution(float stageSizeX){
         BLOCK_SIZE = stageSizeX / STAGE_WIDTH;

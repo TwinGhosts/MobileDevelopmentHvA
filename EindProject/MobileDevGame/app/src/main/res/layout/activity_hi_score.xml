@@ -45,12 +45,13 @@
     <ListView
         android:id="@+id/hi_score_listview"
         android:layout_width="0dp"
-        android:layout_height="307dp"
+        android:layout_height="364dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
         android:background="@color/button_color_transparent"
         android:outlineProvider="background"
+        android:padding="8dp"
         app:layout_constraintBottom_toTopOf="@+id/button_back_hi_score"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -60,8 +61,9 @@
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
         android:background="@android:drawable/ic_media_play"
-        app:layout_constraintBottom_toTopOf="@+id/hi_score_listview"
+        app:layout_constraintBottom_toTopOf="@+id/hi_score_title_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hi_score_title" />
 
@@ -70,8 +72,9 @@
         android:layout_width="49dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginBottom="8dp"
         android:background="@android:drawable/ic_media_previous"
-        app:layout_constraintBottom_toTopOf="@+id/hi_score_listview"
+        app:layout_constraintBottom_toTopOf="@+id/hi_score_title_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hi_score_title" />
 
@@ -83,13 +86,48 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Today"
+        android:text="@string/hi_score_today"
         android:textAlignment="center"
         android:textColor="#a60085"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/hi_score_listview"
+        app:layout_constraintBottom_toTopOf="@+id/hi_score_title_bar"
         app:layout_constraintEnd_toStartOf="@+id/hi_score_next"
         app:layout_constraintStart_toEndOf="@+id/hi_score_previous"
         app:layout_constraintTop_toBottomOf="@+id/hi_score_title" />
+
+    <ImageView
+        android:id="@+id/hi_score_title_bar"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="@color/button_color_main"
+        app:layout_constraintBottom_toTopOf="@+id/hi_score_listview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@color/button_color_main" />
+
+    <TextView
+        android:id="@+id/hi_score_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:text="@string/hi_score_name_property"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/hi_score_title_bar"
+        app:layout_constraintStart_toStartOf="@+id/hi_score_title_bar"
+        app:layout_constraintTop_toTopOf="@+id/hi_score_title_bar" />
+
+    <TextView
+        android:id="@+id/hi_score_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:text="@string/hi_score_score_property"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/hi_score_title_bar"
+        app:layout_constraintEnd_toEndOf="@+id/hi_score_title_bar"
+        app:layout_constraintTop_toTopOf="@+id/hi_score_title_bar" />
 </android.support.constraint.ConstraintLayout>

@@ -10,10 +10,12 @@ public class Player extends GameObject {
     private float gravity = 0.5f;
     private float currentGravity = 0f;
     private float movementSpeed = 4f;
-    private float jumpHeight = 128f;
+    private float jumpHeight = 50f;
 
     public boolean moveLeft = false;
     public boolean moveRight = false;
+
+    private boolean isAlive = true;
 
     private boolean isGrounded = false;
     private float floorHeight;
@@ -80,5 +82,13 @@ public class Player extends GameObject {
     private void clampPosition(){
         position.x = GameData.clamp(position.x, 0, screenSize.x);
         position.y = GameData.clamp(position.y, 0, floorHeight);
+    }
+
+    public boolean getIsAlive(){
+        return isAlive;
+    }
+
+    public void setIsAlive(boolean value){
+        isAlive = value;
     }
 }

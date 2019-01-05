@@ -14,12 +14,11 @@ import java.util.Random;
 
 public class GameManager {
 
-    public static final float SCORE_INCREMENT_PER_TICK = 1f;
-    public static final float SCORE_INCREMENT_PER_BLOCK = 50f;
+    public static final int SCORE_INCREMENT_PER_TICK = 1;
+    public static final int SCORE_INCREMENT_PER_BLOCK = 50;
 
     private BasicTile currentTile;
 
-    private float score = 0f;
     private int difficulty = 1;
 
     public List<BasicTile> tiles = new ArrayList<>();
@@ -66,20 +65,12 @@ public class GameManager {
         return tiles.size();
     }
 
-    public float getScore(){
-        return score;
-    }
-
     public BasicTile getCurrentTile(){
         return currentTile;
     }
 
     public int getDifficulty(){
         return difficulty;
-    }
-
-    public void incrementScore(float value){
-        score += value;
     }
 
     public void incrementDifficulty(float value){
