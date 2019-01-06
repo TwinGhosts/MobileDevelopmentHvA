@@ -1,5 +1,6 @@
 package com.game.twinghosts.elementalclimber.Activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +9,6 @@ import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -17,9 +17,12 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.game.twinghosts.elementalclimber.Camera.Camera;
 import com.game.twinghosts.elementalclimber.Data.DataTransfer;
 import com.game.twinghosts.elementalclimber.Data.GameData;
 import com.game.twinghosts.elementalclimber.R;
@@ -66,9 +69,13 @@ public class GameActivity extends Activity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        gameView.pause(true);
+
+        if(!gameView.gameIsPaused())
+            gameView.pause(true);
+
         TextView scoreText = loseView.findViewById(R.id.text_view_score);
-        scoreText.setText(R.string.your_score + "" + GameData.hiScoreToStore.getScore());
+        scoreText.setText(GameData.hiScoreToStore.getScore());
+
         losePopup.showAtLocation(layout, Gravity.CENTER, 0, 0);
         losePopup.update(0, 0, size.x, size.y);
     }
@@ -88,17 +95,19 @@ public class GameActivity extends Activity {
     @Override
     public void onBackPressed() {
         // Show menu to ask whether the player wants to quit or resume
-        if(!gameView.gameIsPaused()) {
-            Display display = getWindowManager().getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
+        if(!gameView.getGameIsLost()) {
+            if (!gameView.gameIsPaused()) {
+                Display display = getWindowManager().getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
 
-            gameView.pause(true);
-            pausePopup.showAtLocation(layout, Gravity.CENTER, 0, 0);
-            pausePopup.update(0, 0, size.x, size.y);
-        } else {
-            gameView.pause(false);
-            pausePopup.dismiss();
+                gameView.pause(true);
+                pausePopup.showAtLocation(layout, Gravity.CENTER, 0, 0);
+                pausePopup.update(0, 0, size.x, size.y);
+            } else {
+                gameView.pause(false);
+                pausePopup.dismiss();
+            }
         }
     }
 
@@ -109,18 +118,24 @@ public class GameActivity extends Activity {
                 Color.TRANSPARENT));
     }
 
-    private void setLoseButtons(View loseView, final Context context){
+    private void setLoseButtons(final View loseView, final Context context){
         final Button submitButton = loseView.findViewById(R.id.button_submit_score);
         submitButton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(GameData.hiScoreToStore != null) {
-                            DataTransfer.addScoreToSheet(context, GameData.hiScoreToStore);
-                            GameData.hiScoreToStore = null;
-                        }
+                        EditText nameText = loseView.findViewById(R.id.name_input);
+                        if (!nameText.getText().toString().equals(getString(R.string.input_name_text)) && !nameText.getText().toString().equals("") && !nameText.getText().toString().equals(" ")) {
+                            if (GameData.hiScoreToStore != null) {
+                                DataTransfer.addScoreToSheet(context, GameData.hiScoreToStore);
+                                GameData.hiScoreToStore = null;
+                            }
 
-                        submitButton.setEnabled(false);
+                            submitButton.setBackgroundColor(Color.BLACK);
+                            submitButton.setEnabled(false);
+                        } else {
+                            Toast.makeText(context, R.string.input_name_text_error, Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
         );
@@ -129,8 +144,8 @@ public class GameActivity extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent mainMenuIntent = new Intent(GameActivity.this, MainActivity.class);
                         finish();
+                        Intent mainMenuIntent = new Intent(GameActivity.this, MainActivity.class);
                         startActivity(mainMenuIntent);
                     }
                 }
@@ -140,8 +155,8 @@ public class GameActivity extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent gameIntent = new Intent(GameActivity.this, GameActivity.class);
                         finish();
+                        Intent gameIntent = new Intent(GameActivity.this, GameActivity.class);
                         startActivity(gameIntent);
                     }
                 }

@@ -14,6 +14,12 @@ public class GameObject {
     public Rect collisionRectangle;
     public Vector2 position;
 
+    public GameObject(float x, float y, Vector2 size){
+        this.size = size;
+        position = new Vector2(x, y);
+        setCollisionRectangle();
+    }
+
     public GameObject(Bitmap bmp) {
         image = bmp;
         position = new Vector2(0, 0);
@@ -21,43 +27,22 @@ public class GameObject {
         setCollisionRectangle();
     }
 
-    public GameObject(Bitmap bmp, float x, float y) {
-        image = bmp;
-        position = new Vector2(x, y);
-        size = new Vector2(bmp.getWidth(), bmp.getHeight());
-        setCollisionRectangle();
-    }
-
-    public GameObject(Bitmap bmp, Vector2 position) {
-        image = bmp;
-        this.position = position;
-        size = new Vector2(bmp.getWidth(), bmp.getHeight());
-        setCollisionRectangle();
-    }
-
-    public void resizeImage(Vector2 newSize) {
-        image = Bitmap.createScaledBitmap(image, (int)newSize.x, (int)newSize.y, false);
-        size = newSize;
-        setCollisionRectangle();
-    }
-
     public void draw(Canvas canvas) {
-        collisionRectangle.left = (int)position.x;
-        collisionRectangle.right = (int)position.x + (int)GameData.BLOCK_SIZE;
+        setCollisionRectangle();
 
-        collisionRectangle.top = (int)position.y;
-        collisionRectangle.bottom = (int)position.y + (int)GameData.BLOCK_SIZE;
-
-        canvas.drawBitmap(image, position.x, position.y, null);
+        if(image != null)
+            canvas.drawBitmap(image, position.x, position.y, null);
     }
 
-    private void setCollisionRectangle(){
-        collisionRectangle = new Rect();
-        collisionRectangle.left = (int)position.x;
-        collisionRectangle.right = (int)position.x + (int)GameData.BLOCK_SIZE;
+    public void setCollisionRectangle(){
+        if(collisionRectangle == null)
+            collisionRectangle = new Rect();
 
-        collisionRectangle.top = (int)position.y;
-        collisionRectangle.bottom = (int)position.y + (int)GameData.BLOCK_SIZE;
+        collisionRectangle.left = (int)position.x - (int)size.x/2;
+        collisionRectangle.right = (int)position.x + (int)size.x/2;
+
+        collisionRectangle.top = (int)position.y - (int)size.y/2;
+        collisionRectangle.bottom = (int)position.y + (int)size.y/2;
     }
 
     public Bitmap getImage(){

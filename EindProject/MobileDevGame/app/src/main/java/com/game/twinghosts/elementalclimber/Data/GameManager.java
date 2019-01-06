@@ -4,8 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.game.twinghosts.elementalclimber.GameObjects.Tiles.BasicTile;
-import com.game.twinghosts.elementalclimber.GameObjects.Tiles.TileSingle;
+import com.game.twinghosts.elementalclimber.GameObjects.Obstacles.BaseObstacle;
+import com.game.twinghosts.elementalclimber.GameObjects.Obstacles.BlockObstacle;
 import com.game.twinghosts.elementalclimber.R;
 
 import java.util.ArrayList;
@@ -14,14 +14,9 @@ import java.util.Random;
 
 public class GameManager {
 
-    public static final int SCORE_INCREMENT_PER_TICK = 1;
-    public static final int SCORE_INCREMENT_PER_BLOCK = 50;
+    private int speed = 8;
 
-    private BasicTile currentTile;
-
-    private int difficulty = 1;
-
-    public List<BasicTile> tiles = new ArrayList<>();
+    public List<BaseObstacle> obstacles = new ArrayList<>();
 
     private Context context;
 
@@ -29,9 +24,9 @@ public class GameManager {
         this.context = context;
     }
 
-    public BasicTile getRandomTile(){
+    public BaseObstacle getRandomTile(){
         int index = new Random().nextInt(7);
-        Bitmap image = null;
+        Bitmap image;
 
         switch(index) {
             default:
@@ -58,26 +53,27 @@ public class GameManager {
                 break;
         }
 
-        return new TileSingle(image);
+        return new BlockObstacle(image);
     }
 
-    public int getAmountOfBlocksPlaced(){
-        return tiles.size();
+    public void updateObstacles(){
+        if(!obstacles.isEmpty()) {
+            for (int i = obstacles.size() - 1; i >= 0; i--) {
+                BaseObstacle obstacle = obstacles.get(i);
+                obstacle.position.x -= speed;
+
+                if (obstacle.position.x < 0) {
+                    obstacles.remove(obstacle);
+                }
+            }
+        }
     }
 
-    public BasicTile getCurrentTile(){
-        return currentTile;
+    public int getSpeed(){
+        return speed;
     }
 
-    public int getDifficulty(){
-        return difficulty;
-    }
-
-    public void incrementDifficulty(float value){
-        difficulty += value;
-    }
-
-    public void setCurrentTile(BasicTile tile){
-        currentTile = tile;
+    public void incrementSpeed(int value){
+        speed += value;
     }
 }

@@ -3,16 +3,17 @@ package com.game.twinghosts.elementalclimber.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ListView;
 
 import com.game.twinghosts.elementalclimber.Callbacks.AsyncResult;
 import com.game.twinghosts.elementalclimber.Data.DownloadWebpageTask;
 import com.game.twinghosts.elementalclimber.Data.HiScore;
-import com.game.twinghosts.elementalclimber.Data.HiScoreAdapter;
+import com.game.twinghosts.elementalclimber.Data.HiScoreRecycleAdapter;
 import com.game.twinghosts.elementalclimber.R;
 
 import org.json.JSONArray;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 
 public class HighScoreActivity extends Activity {
 
-    private ListView hiScoreListView;
+    private RecyclerView hiScoreListView;
     private ArrayList<HiScore> hiScoreList;
 
     public static final String ALL_SCORES_URL = "https://spreadsheets.google.com/tq?tq=select*order+by+B+desc&key=19J040b8Nv_vfoy5z5sU6Im9brNgYqT0-ZYQc-IVtikc";
@@ -71,7 +72,7 @@ public class HighScoreActivity extends Activity {
         });
 
         hiScoreList = new ArrayList<>();
-        hiScoreListView = findViewById(R.id.hi_score_listview);
+        hiScoreListView = findViewById(R.id.hi_score_recyclerview);
 
         // Get the JSON response from google spreadsheet
         new DownloadWebpageTask(new AsyncResult() {
@@ -96,8 +97,13 @@ public class HighScoreActivity extends Activity {
                 hiScoreList.add(hiScore);
             }
 
-            final HiScoreAdapter adapter = new HiScoreAdapter(this, hiScoreList);
+            final HiScoreRecycleAdapter adapter = new HiScoreRecycleAdapter(this, hiScoreList);
             hiScoreListView.setAdapter(adapter);
+
+            RecyclerView.LayoutManager layoutManager =
+                    new LinearLayoutManager(HighScoreActivity.this);
+            hiScoreListView.setLayoutManager(layoutManager);
+            hiScoreListView.setHasFixedSize(true);
 
         } catch (JSONException e) {
             e.printStackTrace();

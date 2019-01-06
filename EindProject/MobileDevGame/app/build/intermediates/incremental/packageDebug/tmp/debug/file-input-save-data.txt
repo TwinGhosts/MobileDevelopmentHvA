@@ -1,11 +1,11 @@
 #Internal package file, do not edit.
-#Sat Jan 05 01:23:47 CET 2019
-1.base=D\:\\MEGA\\Android\\MobileDevGame\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\34
+#Sun Jan 06 00:51:00 CET 2019
+1.base=C\:\\Users\\TwinG\\Documents\\MobileDevelopmentHvA\\EindProject\\MobileDevGame\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\1
 0.baseType=DIRECTORY
 1.baseType=DIRECTORY
 count=2
 1.set=DEX
 0.path=classes.dex
 0.set=DEX
-0.base=D\:\\MEGA\\Android\\MobileDevGame\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\18
+0.base=C\:\\Users\\TwinG\\Documents\\MobileDevelopmentHvA\\EindProject\\MobileDevGame\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 1.path=classes.dex

@@ -26,6 +26,9 @@
 
     <string name="toast_added_hi_score">Hi-Score added!</string>
 
+    <string name="input_name_text">Insert Name</string>
+    <string name="input_name_text_error">Insert a valid name!</string>
+
     <string name="your_score"><font color="#ffbb00">Your score: </font></string>
 
 </resources>

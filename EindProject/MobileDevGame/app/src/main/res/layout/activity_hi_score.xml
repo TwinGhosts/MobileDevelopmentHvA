@@ -42,8 +42,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/hi_score_listview"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/hi_score_recyclerview"
         android:layout_width="0dp"
         android:layout_height="364dp"
         android:layout_marginStart="32dp"
@@ -103,7 +103,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:background="@color/button_color_main"
-        app:layout_constraintBottom_toTopOf="@+id/hi_score_listview"
+        app:layout_constraintBottom_toTopOf="@+id/hi_score_recyclerview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"

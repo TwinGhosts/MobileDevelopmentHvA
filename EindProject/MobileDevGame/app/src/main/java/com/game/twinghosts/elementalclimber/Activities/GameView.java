@@ -2,51 +2,40 @@ package com.game.twinghosts.elementalclimber.Activities;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.Rect;
 import android.os.CountDownTimer;
-import android.support.design.widget.FloatingActionButton;
 import android.view.Display;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.game.twinghosts.elementalclimber.Camera.Camera;
 import com.game.twinghosts.elementalclimber.Data.GameData;
 import com.game.twinghosts.elementalclimber.Data.GameManager;
 import com.game.twinghosts.elementalclimber.Data.HiScore;
+import com.game.twinghosts.elementalclimber.GameObjects.Obstacles.BlockObstacle;
 import com.game.twinghosts.elementalclimber.GameObjects.Player;
-import com.game.twinghosts.elementalclimber.GameObjects.Tiles.BasicTile;
-import com.game.twinghosts.elementalclimber.GameObjects.Tiles.TileSingle;
+import com.game.twinghosts.elementalclimber.GameObjects.Obstacles.BaseObstacle;
 import com.game.twinghosts.elementalclimber.R;
 import com.game.twinghosts.elementalclimber.Utility.Vector2;
 
 import java.util.Random;
 
-class GameView extends SurfaceView implements SurfaceHolder.Callback {
+public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private MainThread thread;
     private Player player;
-    private Camera camera;
     private Paint paint = new Paint();
-
-    private BasicTile[][] floorTiles = new BasicTile[GameData.STAGE_WIDTH][10];
     private GameManager gameManager;
     private CountDownTimer countDownTimer;
     private Vector2 screenSize;
     private boolean gameIsRunning = true;
     private boolean gameIsLost = false;
     private boolean showLostWindow = false;
-
-    private final int difficultyTickTime = 250;
-    private final int difficultyTimeReduction = 25;
 
     private GameActivity context;
 
@@ -68,42 +57,44 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
         display.getSize(size);
         screenSize = new Vector2(size.x, size.y);
 
+        // camera = new Camera(new Vector2(0, 0));
+
+        GameData.floorHeight = ((int)screenSize.y / 8) * 5;
+        GameData.ceilingHeight = ((int)screenSize.y / 8) * 3;
+
         gameManager = new GameManager(context);
 
-        // Define the block size based on the resolution
-        GameData.setBlockSizeBasedOnResolution(screenSize.x);
-
-        // Create a new camera which will act as the point where the world gets translated from
-        camera = new Camera(new Vector2(0 + GameData.BLOCK_SIZE/2f, -screenSize.y + GameData.BLOCK_SIZE * 1.5f));
-
         // Create the player
-        player = new Player(BitmapFactory.decodeResource(getResources(), R.drawable.block_white), screenSize);
-        player.position = new Vector2(300, 100);
+        player = new Player(screenSize.x/7, screenSize.y/2, new Vector2(GameData.BLOCK_SIZE, GameData.BLOCK_SIZE));
+        player.setScene(this);
 
         // Run the game on a custom mainThread
         thread = new MainThread(getHolder(), this);
         setFocusable(true);
 
-        createStage(context);
-        camera.setTarget(player);
+        createBlockMovementCounter();
+
+        setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                player.switchGravity();
+            }
+        });
     }
 
     /**
      * Updates the game before the draw function happens so that all objects are in the right place
      * before drawing them.
      */
+    @SuppressLint("SetTextI18n")
     public void update() {
         if(gameIsRunning) {
             if(!gamePaused) {
+                GameData.hiScoreToStore.addScore(1);
                 player.update(gameManager);
-                camera.chaseTarget();
+                player.setCollisionRectangle();
+                gameManager.updateObstacles();
             }
-        }
-
-        if(player != null && !player.getIsAlive()) {
-            countDownTimer.cancel();
-            player = null;
-            lose();
         }
     }
 
@@ -113,86 +104,97 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if(canvas == null) return;
         canvas.drawColor(Color.BLACK);
 
-        // Draw the floor tiles
-        drawFloorTiles(canvas);
-
-        // Draw all of the tiles
-        drawBlocks(canvas);
-
-        player.draw(canvas);
+        drawPlayer(canvas);
+        drawFloor(canvas);
+        drawObstacles(canvas);
+        drawScore(canvas);
 
         paint.setColor(Color.BLACK);
     }
 
-    /**
-     * Creates the stage array used for instantiating the GameObjects based on the level index
-     */
-    private void createStage(Context context){
-        createBlockMovementCounter();
-        createFloor(context);
-    }
-
-    /**
-     * Creates the the floor tiles below the player and stores them seperately so that they don't
-     * get used for collision detection. (A single height check is used to determine their top)
-     * @param context the view's main context to get resources
-     */
-    private void createFloor(Context context){
-        for(int i = 0; i < GameData.STAGE_WIDTH; i++){
-            floorTiles[i][0] = new TileSingle(BitmapFactory.decodeResource(context.getResources(), R.drawable.block_white));
-        }
-    }
-
-    private void createNextTile(int x, int y){
-        BasicTile tile = gameManager.getRandomTile();
-        tile.position = new Vector2(x, y);
-        gameManager.setCurrentTile(tile);
-        gameManager.tiles.add(tile);
-    }
-
     private void createBlockMovementCounter(){
-        int veryLargeInt = 4;
-        countDownTimer = new CountDownTimer(veryLargeInt * 1000, 100) {
+        int difficultyTimerInterval = 8;
+        int interval = 1500 - GameData.DIFFICULTY_INTERVAL_REDUCTION * GameData.difficulty;
+        countDownTimer = new CountDownTimer(difficultyTimerInterval * 1000, interval) {
             public void onTick(long millisUntilFinished) {
                 // Score increment per tick
                 if(!gamePaused) {
-                    GameData.hiScoreToStore.addScore(GameManager.SCORE_INCREMENT_PER_BLOCK);
+                    GameData.hiScoreToStore.addScore(GameData.SCORE_INCREMENT_PER_TICK);
+                    spawnObstacle();
                 }
             }
 
             public void onFinish() {
-                // Keep the timer going forever
+                // Increment speed and difficulty
+                GameData.difficulty++;
+                gameManager.incrementSpeed(2);
+                GameData.hiScoreToStore.addScore(GameData.SCORE_INCREMENT_PER_DIFFICULTY);
                 createBlockMovementCounter();
+                lose();
             }
         }.start();
     }
 
-    private void drawFloorTiles(Canvas canvas){
-        for(int i = 0; i < floorTiles[0].length; i++){
-            for(int j = 0; j < floorTiles[1].length; j++){
-                float xCenterPos = i * GameData.BLOCK_SIZE + GameData.BLOCK_SIZE/2 - (int) camera.position.x;
-                float yCenterPos = j * GameData.BLOCK_SIZE + GameData.BLOCK_SIZE/2 - (int) camera.position.y;
-                if(floorTiles[i][j] != null){
-                    floorTiles[i][j].position = new Vector2(xCenterPos, yCenterPos);
-                    if(floorTiles[i][j].getSize().x != (int)GameData.BLOCK_SIZE)
-                        floorTiles[i][j].resizeImage(new Vector2(GameData.BLOCK_SIZE, GameData.BLOCK_SIZE));
-                    floorTiles[i][j].draw(canvas);
-                }
-            }
-        }
+    private void spawnObstacle(){
+        Random random = new Random();
+        boolean spawnTop = (random.nextInt(2) == 0);
+        int stageHeightDifference = GameData.floorHeight - GameData.ceilingHeight;
+        int objectHeight = stageHeightDifference / (2 + random.nextInt(10));
+        int objectWidth = (int)GameData.BLOCK_SIZE;
+        int spawnPositionY = (spawnTop) ? GameData.floorHeight - objectHeight/2 : GameData.ceilingHeight + objectHeight/2;
+
+        BaseObstacle newObstacle = new BlockObstacle((int)screenSize.x, spawnPositionY, new Vector2(objectWidth, objectHeight));
+        gameManager.obstacles.add(newObstacle);
+
+        GameData.hiScoreToStore.addScore(GameData.SCORE_INCREMENT_PER_BLOCK);
     }
 
-    private void drawBlocks(Canvas canvas){
-        for(BasicTile tile : gameManager.tiles){
-            tile.draw(canvas);
-        }
+    private void drawFloor(Canvas canvas){
+        paint.setColor(getResources().getColor(R.color.button_color_main));
+        int offset = 5;
+        canvas.drawLine(0, GameData.floorHeight + offset, screenSize.x, GameData.floorHeight + offset, paint);
+        canvas.drawLine(0, GameData.floorHeight, screenSize.x, GameData.floorHeight, paint);
+        canvas.drawLine(0, GameData.ceilingHeight, screenSize.x, GameData.ceilingHeight, paint);
+        canvas.drawLine(0, GameData.ceilingHeight - offset, screenSize.x, GameData.ceilingHeight - offset, paint);
     }
 
-    private void lose(){
+    private void drawObstacles(Canvas canvas){
+        for(BaseObstacle tile : gameManager.obstacles){
+            paint.setColor(Color.RED);
+            paint.setStyle(Paint.Style.STROKE);
+
+            tile.setCollisionRectangle();
+            canvas.drawRect(tile.collisionRectangle, paint);
+        }
+        paint.setStyle(Paint.Style.FILL);
+    }
+
+    private void drawPlayer(Canvas canvas){
+        paint.setColor(Color.WHITE);
+        paint.setStyle(Paint.Style.STROKE);
+
+        player.setCollisionRectangle();
+        canvas.drawRect(player.collisionRectangle, paint);
+        paint.setStyle(Paint.Style.FILL);
+    }
+
+    private void drawScore(Canvas canvas){
+        paint.setColor(Color.WHITE);
+        paint.setTextSize(96);
+        paint.setTextAlign(Paint.Align.CENTER);
+        canvas.drawText("" + GameData.hiScoreToStore.getScore(),
+                    (int)screenSize.x/2,
+                (int)screenSize.y/4,
+                    paint
+                );
+    }
+
+    public void lose(){
         if(!gameIsLost && !showLostWindow) {
+            context.showLoseWindow();
             showLostWindow = true;
             gameIsLost = true;
-            context.showLoseWindow();
+            gameIsRunning = false;
         }
     }
 
@@ -226,5 +228,9 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
             }
             retry = false;
         }
+    }
+
+    public boolean getGameIsLost(){
+        return gameIsLost;
     }
 }

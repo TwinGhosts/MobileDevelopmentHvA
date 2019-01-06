@@ -61,9 +61,8 @@
 
     <Button
         android:id="@+id/button_submit_score"
-        android:layout_width="0dp"
+        android:layout_width="162dp"
         android:layout_height="48dp"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/button_wide"
@@ -71,8 +70,6 @@
         android:textColor="@color/button_color_main"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_restart" />
 
     <TextView
@@ -82,7 +79,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
-        android:text="Your score: "
+        android:text="@string/your_score"
         android:textAlignment="center"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
@@ -90,4 +87,26 @@
         app:layout_constraintBottom_toTopOf="@+id/button_restart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/name_input"
+        android:focusedByDefault="false"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/button_color_transparent"
+        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:maxLength="12"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:text="@string/input_name_text"
+        android:textColor="@android:color/background_light"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/button_submit_score"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_restart" />
 </android.support.constraint.ConstraintLayout>
