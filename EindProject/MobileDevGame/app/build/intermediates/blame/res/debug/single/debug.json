@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\Users\\TwinG\\Documents\\MobileDevelopmentHvA\\EindProject\\MobileDevGame\\app\\build\\intermediates\\res\\merged\\debug\\drawable_arrow_right.png.flat",
+        "source": "C:\\Users\\TwinG\\Documents\\MobileDevelopmentHvA\\EindProject\\MobileDevGame\\app\\src\\main\\res\\drawable\\arrow_right.png"
+    },
+    {
         "merged": "C:\\Users\\TwinG\\Documents\\MobileDevelopmentHvA\\EindProject\\MobileDevGame\\app\\build\\intermediates\\res\\merged\\debug\\anim_abc_popup_exit.xml.flat",
         "source": "C:\\Users\\TwinG\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\005a4e8092d8f49a82a4335c556ecafd\\res\\anim\\abc_popup_exit.xml"
     },
@@ -238,6 +242,10 @@
     {
         "merged": "C:\\Users\\TwinG\\Documents\\MobileDevelopmentHvA\\EindProject\\MobileDevGame\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_scrubber_primary_mtrl_alpha.9.png.flat",
         "source": "C:\\Users\\TwinG\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\005a4e8092d8f49a82a4335c556ecafd\\res\\drawable-xxhdpi-v4\\abc_scrubber_primary_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "C:\\Users\\TwinG\\Documents\\MobileDevelopmentHvA\\EindProject\\MobileDevGame\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_hi_score.xml.flat",
+        "source": "C:\\Users\\TwinG\\Documents\\MobileDevelopmentHvA\\EindProject\\MobileDevGame\\app\\src\\main\\res\\layout\\fragment_hi_score.xml"
     },
     {
         "merged": "C:\\Users\\TwinG\\Documents\\MobileDevelopmentHvA\\EindProject\\MobileDevGame\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_ic_star_black_36dp.png.flat",
@@ -1790,6 +1798,10 @@
     {
         "merged": "C:\\Users\\TwinG\\Documents\\MobileDevelopmentHvA\\EindProject\\MobileDevGame\\app\\build\\intermediates\\res\\merged\\debug\\color_mtrl_bottom_nav_colored_item_tint.xml.flat",
         "source": "C:\\Users\\TwinG\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\6d45fb996c4f163fbe88921b7ec85bce\\res\\color\\mtrl_bottom_nav_colored_item_tint.xml"
+    },
+    {
+        "merged": "C:\\Users\\TwinG\\Documents\\MobileDevelopmentHvA\\EindProject\\MobileDevGame\\app\\build\\intermediates\\res\\merged\\debug\\drawable_arrow_left.png.flat",
+        "source": "C:\\Users\\TwinG\\Documents\\MobileDevelopmentHvA\\EindProject\\MobileDevGame\\app\\src\\main\\res\\drawable\\arrow_left.png"
     },
     {
         "merged": "C:\\Users\\TwinG\\Documents\\MobileDevelopmentHvA\\EindProject\\MobileDevGame\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_btn_check_to_on_mtrl_015.png.flat",

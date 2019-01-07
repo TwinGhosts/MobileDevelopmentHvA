@@ -13,11 +13,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class DownloadWebpageTask extends AsyncTask<String, Void, String> {
+public class DownloadWebPageTask extends AsyncTask<String, Void, String> {
 
     private AsyncResult callback;
 
-    public DownloadWebpageTask(AsyncResult callback) {
+    public DownloadWebPageTask(AsyncResult callback) {
         this.callback = callback;
     }
 
@@ -50,8 +50,8 @@ public class DownloadWebpageTask extends AsyncTask<String, Void, String> {
             URL url = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
-            conn.setReadTimeout(10000 /* milliseconds */);
-            conn.setConnectTimeout(15000 /* milliseconds */);
+            conn.setReadTimeout(10000);
+            conn.setConnectTimeout(10000);
             conn.setRequestMethod("GET");
             conn.setDoInput(true);
 

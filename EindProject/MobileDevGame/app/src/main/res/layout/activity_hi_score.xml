@@ -42,38 +42,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/hi_score_recyclerview"
-        android:layout_width="0dp"
-        android:layout_height="364dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/button_color_transparent"
-        android:outlineProvider="background"
-        android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/button_back_hi_score"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <Button
         android:id="@+id/hi_score_next"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
-        android:background="@android:drawable/ic_media_play"
+        android:background="@drawable/arrow_right"
+        android:backgroundTint="@android:color/background_light"
         app:layout_constraintBottom_toTopOf="@+id/hi_score_title_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hi_score_title" />
 
     <Button
         android:id="@+id/hi_score_previous"
-        android:layout_width="49dp"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginStart="32dp"
         android:layout_marginBottom="8dp"
-        android:background="@android:drawable/ic_media_previous"
+        android:background="@drawable/arrow_left"
+        android:backgroundTint="@android:color/background_light"
         app:layout_constraintBottom_toTopOf="@+id/hi_score_title_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hi_score_title" />
@@ -103,7 +91,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:background="@color/button_color_main"
-        app:layout_constraintBottom_toTopOf="@+id/hi_score_recyclerview"
+        app:layout_constraintBottom_toTopOf="@+id/contraint_fragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -130,4 +118,18 @@
         app:layout_constraintBottom_toBottomOf="@+id/hi_score_title_bar"
         app:layout_constraintEnd_toEndOf="@+id/hi_score_title_bar"
         app:layout_constraintTop_toTopOf="@+id/hi_score_title_bar" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/contraint_fragment"
+        android:layout_width="0dp"
+        android:layout_height="367dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_back_hi_score"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

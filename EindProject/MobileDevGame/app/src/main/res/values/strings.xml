@@ -29,6 +29,8 @@
     <string name="input_name_text">Insert Name</string>
     <string name="input_name_text_error">Insert a valid name!</string>
 
+    <string name="enable_internet">Please connect to the internet before using this functionality!</string>
+
     <string name="your_score"><font color="#ffbb00">Your score: </font></string>
 
 </resources>

@@ -124,9 +124,16 @@ public class GameActivity extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        // This cant be done unless connected to the internet
+                        if(!DataTransfer.isConnectedToInternet(getBaseContext())){
+                            Toast.makeText(getBaseContext(), R.string.enable_internet, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
                         EditText nameText = loseView.findViewById(R.id.name_input);
                         if (!nameText.getText().toString().equals(getString(R.string.input_name_text)) && !nameText.getText().toString().equals("") && !nameText.getText().toString().equals(" ")) {
                             if (GameData.hiScoreToStore != null) {
+                                GameData.hiScoreToStore.setName(nameText.getText().toString());
                                 DataTransfer.addScoreToSheet(context, GameData.hiScoreToStore);
                                 GameData.hiScoreToStore = null;
                             }

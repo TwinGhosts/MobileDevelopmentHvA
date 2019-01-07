@@ -1,34 +1,31 @@
 package com.game.twinghosts.elementalclimber.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.game.twinghosts.elementalclimber.Callbacks.AsyncResult;
-import com.game.twinghosts.elementalclimber.Data.DownloadWebpageTask;
-import com.game.twinghosts.elementalclimber.Data.HiScore;
-import com.game.twinghosts.elementalclimber.Data.HiScoreRecycleAdapter;
+import com.game.twinghosts.elementalclimber.Data.DataTransfer;
+import com.game.twinghosts.elementalclimber.Fragments.HiScoreFragment;
 import com.game.twinghosts.elementalclimber.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+public class HighScoreActivity extends FragmentActivity {
 
-import java.util.ArrayList;
+    private int currentHiScoreIndex = 0;
+    private final int maxHiScoreIndex = 2;
+    private TextView categoryText;
 
-public class HighScoreActivity extends Activity {
-
-    private RecyclerView hiScoreListView;
-    private ArrayList<HiScore> hiScoreList;
-
-    public static final String ALL_SCORES_URL = "https://spreadsheets.google.com/tq?tq=select*order+by+B+desc&key=19J040b8Nv_vfoy5z5sU6Im9brNgYqT0-ZYQc-IVtikc";
-    public static final String WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxH2Z-Njk4YGn1XmXQQxIekdkvncPVpxtZZOgLWZ-mFKLf0aAo/exec";
+    private HiScoreFragment hiScoreFragmentAll;
+    private HiScoreFragment hiScoreFragmentToday;
+    private HiScoreFragment hiScoreFragmentMonth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +37,10 @@ public class HighScoreActivity extends Activity {
 
         // Set the control view
         setContentView(R.layout.activity_hi_score);
+
+        categoryText = findViewById(R.id.hi_score_category);
+
+        changeScoreFragment(0);
 
         Button backButton = findViewById(R.id.button_back_hi_score);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -55,9 +56,7 @@ public class HighScoreActivity extends Activity {
         previousScoresButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mainMenuIntent = new Intent(HighScoreActivity.this, MainActivity.class);
-                startActivity(mainMenuIntent);
-                finish();
+                changeScoreFragment(currentHiScoreIndex-1);
             }
         });
 
@@ -65,48 +64,66 @@ public class HighScoreActivity extends Activity {
         nextScoresButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mainMenuIntent = new Intent(HighScoreActivity.this, MainActivity.class);
-                startActivity(mainMenuIntent);
-                finish();
+                changeScoreFragment(currentHiScoreIndex+1);
             }
         });
-
-        hiScoreList = new ArrayList<>();
-        hiScoreListView = findViewById(R.id.hi_score_recyclerview);
-
-        // Get the JSON response from google spreadsheet
-        new DownloadWebpageTask(new AsyncResult() {
-            @Override
-            public void onResult(JSONObject object) {
-                processJson(object);
-            }
-        }).execute(ALL_SCORES_URL);
     }
 
-    private void processJson(JSONObject object) {
-        try {
-            JSONArray rows = object.getJSONArray("rows");
-            for (int r = 0; r < rows.length(); ++r) {
-                JSONObject row = rows.getJSONObject(r);
-                JSONArray columns = row.getJSONArray("c");
+    /**
+     * Changes the HiScore RecycleList fragment to a different one with a different SQL Statement
+     * @param index defines which statement gets chosen
+     *              1: Today's Scores DESC
+     *              2: This Month's Scores DESC
+     *              3: All Scores DESC
+     */
+    private void changeScoreFragment(int index){
+        // Make sure the index falls within a valid range, wrap
+        if(index > maxHiScoreIndex) index = 0;
+        if(index < 0) index = maxHiScoreIndex;
+        currentHiScoreIndex = index;
 
-                String name = columns.getJSONObject(0).getString("v");
-                int score = columns.getJSONObject(1).getInt("v");
-
-                HiScore hiScore = new HiScore(name, score);
-                hiScoreList.add(hiScore);
-            }
-
-            final HiScoreRecycleAdapter adapter = new HiScoreRecycleAdapter(this, hiScoreList);
-            hiScoreListView.setAdapter(adapter);
-
-            RecyclerView.LayoutManager layoutManager =
-                    new LinearLayoutManager(HighScoreActivity.this);
-            hiScoreListView.setLayoutManager(layoutManager);
-            hiScoreListView.setHasFixedSize(true);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+        // This cant be done unless connected to the internet
+        if(!DataTransfer.isConnectedToInternet(this)){
+            Toast.makeText(this, R.string.enable_internet, Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        // Set up the changing of fragments
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        HiScoreFragment hiScoreFragment;
+
+        // Get the correct hiScore sorting
+        int sortMode;
+        switch(index){ // TODO remove magic number stuff
+            default:
+            case 0:
+                sortMode = DataTransfer.SORTING_TODAY;
+                categoryText.setText(R.string.hi_score_today);
+                if(hiScoreFragmentToday == null) hiScoreFragmentToday = new HiScoreFragment();
+                hiScoreFragment = hiScoreFragmentToday;
+                break;
+
+            case 1:
+                sortMode = DataTransfer.SORTING_MONTH;
+                categoryText.setText(R.string.hi_score_month);
+                if(hiScoreFragmentMonth == null) hiScoreFragmentMonth = new HiScoreFragment();
+                hiScoreFragment = hiScoreFragmentMonth;
+                break;
+
+            case 2:
+                sortMode = DataTransfer.SORTING_ALL;
+                categoryText.setText(R.string.hi_score_all_time);
+                if(hiScoreFragmentAll == null) hiScoreFragmentAll = new HiScoreFragment();
+                hiScoreFragment = hiScoreFragmentAll;
+                break;
+        }
+
+        // Add the arguments to the fragment
+        hiScoreFragment.sortHiScores(sortMode);
+
+        // Replace the current layout with the fragment and commit
+        fragmentTransaction.replace(R.id.contraint_fragment, hiScoreFragment);
+        fragmentTransaction.commit();
     }
 }
