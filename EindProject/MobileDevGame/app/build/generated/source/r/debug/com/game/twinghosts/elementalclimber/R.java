@@ -2676,7 +2676,7 @@ public final class R {
      * <tr><td>barrier</td><td>2</td><td></td></tr>
      * <tr><td>chains</td><td>4</td><td></td></tr>
      * <tr><td>dimensions</td><td>8</td><td></td></tr>
-     * <tr><td>direct</td><td>1</td><td></td></tr>
+     * <tr><td>direct</td><td>1</td><td>direct, barriers, chains</td></tr>
      * <tr><td>groups</td><td>20</td><td></td></tr>
      * <tr><td>none</td><td>0</td><td></td></tr>
      * <tr><td>standard</td><td>7</td><td></td></tr>
@@ -5055,31 +5055,32 @@ public final class R {
     public static final int character_counter_content_description=0x7f0d0031;
     public static final int character_counter_pattern=0x7f0d0032;
     public static final int credits=0x7f0d0033;
-    public static final int fab_transformation_scrim_behavior=0x7f0d0034;
-    public static final int fab_transformation_sheet_behavior=0x7f0d0035;
-    public static final int hi_score_all_time=0x7f0d0036;
-    public static final int hi_score_month=0x7f0d0037;
-    public static final int hi_score_name_property=0x7f0d0038;
-    public static final int hi_score_score_property=0x7f0d0039;
-    public static final int hi_score_today=0x7f0d003a;
-    public static final int hi_score_week=0x7f0d003b;
-    public static final int hide_bottom_view_on_scroll_behavior=0x7f0d003c;
-    public static final int input_name_text=0x7f0d003d;
-    public static final int input_name_text_error=0x7f0d003e;
-    public static final int lose_menu_title=0x7f0d003f;
-    public static final int mtrl_chip_close_icon_content_description=0x7f0d0040;
-    public static final int password_toggle_content_description=0x7f0d0041;
-    public static final int path_password_eye=0x7f0d0042;
-    public static final int path_password_eye_mask_strike_through=0x7f0d0043;
-    public static final int path_password_eye_mask_visible=0x7f0d0044;
-    public static final int path_password_strike_through=0x7f0d0045;
-    public static final int pause_menu_title=0x7f0d0046;
-    public static final int score_text=0x7f0d0047;
-    public static final int search_menu_title=0x7f0d0048;
-    public static final int status_bar_notification_info_overflow=0x7f0d0049;
-    public static final int submit_score=0x7f0d004a;
-    public static final int toast_added_hi_score=0x7f0d004b;
-    public static final int your_score=0x7f0d004c;
+    public static final int enable_internet=0x7f0d0034;
+    public static final int fab_transformation_scrim_behavior=0x7f0d0035;
+    public static final int fab_transformation_sheet_behavior=0x7f0d0036;
+    public static final int hi_score_all_time=0x7f0d0037;
+    public static final int hi_score_month=0x7f0d0038;
+    public static final int hi_score_name_property=0x7f0d0039;
+    public static final int hi_score_score_property=0x7f0d003a;
+    public static final int hi_score_today=0x7f0d003b;
+    public static final int hi_score_week=0x7f0d003c;
+    public static final int hide_bottom_view_on_scroll_behavior=0x7f0d003d;
+    public static final int input_name_text=0x7f0d003e;
+    public static final int input_name_text_error=0x7f0d003f;
+    public static final int lose_menu_title=0x7f0d0040;
+    public static final int mtrl_chip_close_icon_content_description=0x7f0d0041;
+    public static final int password_toggle_content_description=0x7f0d0042;
+    public static final int path_password_eye=0x7f0d0043;
+    public static final int path_password_eye_mask_strike_through=0x7f0d0044;
+    public static final int path_password_eye_mask_visible=0x7f0d0045;
+    public static final int path_password_strike_through=0x7f0d0046;
+    public static final int pause_menu_title=0x7f0d0047;
+    public static final int score_text=0x7f0d0048;
+    public static final int search_menu_title=0x7f0d0049;
+    public static final int status_bar_notification_info_overflow=0x7f0d004a;
+    public static final int submit_score=0x7f0d004b;
+    public static final int toast_added_hi_score=0x7f0d004c;
+    public static final int your_score=0x7f0d004d;
   }
   public static final class style {
     public static final int AlertDialog_AppCompat=0x7f0e0000;
@@ -11574,7 +11575,7 @@ public final class R {
      * <tr><td>barrier</td><td>2</td><td></td></tr>
      * <tr><td>chains</td><td>4</td><td></td></tr>
      * <tr><td>dimensions</td><td>8</td><td></td></tr>
-     * <tr><td>direct</td><td>1</td><td></td></tr>
+     * <tr><td>direct</td><td>1</td><td>direct, barriers, chains</td></tr>
      * <tr><td>groups</td><td>20</td><td></td></tr>
      * <tr><td>none</td><td>0</td><td></td></tr>
      * <tr><td>standard</td><td>7</td><td></td></tr>

@@ -1,4 +1,4 @@
-#Fri Jan 04 04:18:12 CET 2019
-base.0=E\:\\MEGA\\Android\\MobileDevGame\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\28
+#Mon Jan 07 18:20:11 CET 2019
+base.0=E\:\\GIT\\MobileDevHva\\EindProject\\MobileDevGame\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\11
 path.0=classes.dex
 renamed.0=classes.dex

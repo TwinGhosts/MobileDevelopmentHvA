@@ -13,11 +13,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class DownloadWebPageTask extends AsyncTask<String, Void, String> {
+public class DownloadWebpageTask extends AsyncTask<String, Void, String> {
 
     private AsyncResult callback;
 
-    public DownloadWebPageTask(AsyncResult callback) {
+    public DownloadWebpageTask(AsyncResult callback) {
         this.callback = callback;
     }
 

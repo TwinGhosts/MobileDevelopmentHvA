@@ -8,10 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.game.twinghosts.elementalclimber.Activities.HighScoreActivity;
 import com.game.twinghosts.elementalclimber.Callbacks.AsyncResult;
 import com.game.twinghosts.elementalclimber.Data.DataTransfer;
-import com.game.twinghosts.elementalclimber.Data.DownloadWebPageTask;
+import com.game.twinghosts.elementalclimber.Data.DownloadWebpageTask;
 import com.game.twinghosts.elementalclimber.Data.HiScore;
 import com.game.twinghosts.elementalclimber.Data.HiScoreRecycleAdapter;
 import com.game.twinghosts.elementalclimber.R;
@@ -77,7 +76,7 @@ public class HiScoreFragment extends Fragment {
      */
     public void sortHiScores(final int sortMode){
         // Get the JSON response from google spreadsheet
-        new DownloadWebPageTask(new AsyncResult() {
+        new DownloadWebpageTask(new AsyncResult() {
             @Override
             public void onResult(JSONObject object) {
                 processHiScoreJson(object, sortMode);

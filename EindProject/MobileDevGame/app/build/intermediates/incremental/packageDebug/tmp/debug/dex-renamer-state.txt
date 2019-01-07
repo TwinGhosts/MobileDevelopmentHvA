@@ -1,7 +1,7 @@
-#Mon Jan 07 00:39:45 CET 2019
-base.0=C\:\\Users\\TwinG\\Documents\\MobileDevelopmentHvA\\EindProject\\MobileDevGame\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\1
+#Mon Jan 07 18:21:53 CET 2019
+base.0=E\:\\GIT\\MobileDevHva\\EindProject\\MobileDevGame\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\1
 path.1=classes.dex
 renamed.1=classes2.dex
 path.0=classes.dex
 renamed.0=classes.dex
-base.1=C\:\\Users\\TwinG\\Documents\\MobileDevelopmentHvA\\EindProject\\MobileDevGame\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+base.1=E\:\\GIT\\MobileDevHva\\EindProject\\MobileDevGame\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\17
