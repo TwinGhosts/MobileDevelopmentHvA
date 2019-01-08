@@ -2,6 +2,7 @@ package com.game.twinghosts.elementalclimber.Activities;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -33,13 +34,17 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameManager gameManager;
     private CountDownTimer countDownTimer;
     private Vector2 screenSize;
-    private boolean gameIsRunning = true;
-    private boolean gameIsLost = false;
-    private boolean showLostWindow = false;
 
     private GameActivity context;
 
     private boolean gamePaused = false;
+
+    public static int GAME_STATE_PLAYING = 0;
+    public static int GAME_STATE_PAUSED = 1;
+    public static int GAME_STATE_LOST = 2;
+    public static int GAME_STATE_FINAL = 3;
+
+    private int currentGameState = GAME_STATE_PLAYING;
 
     public GameView(Context context){
         super(context);
@@ -88,13 +93,20 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
      */
     @SuppressLint("SetTextI18n")
     public void update() {
-        if(gameIsRunning) {
-            if(!gamePaused) {
-                GameData.hiScoreToStore.addScore(1);
-                player.update(gameManager);
-                player.setCollisionRectangle();
-                gameManager.updateObstacles();
-            }
+        // Normal update routines
+        if(currentGameState == GAME_STATE_PLAYING) {
+            GameData.hiScoreToStore.addScore(1);
+            player.update(gameManager);
+            player.setCollisionRectangle();
+            gameManager.updateObstacles();
+        }
+
+        // Lost
+        if(currentGameState == GAME_STATE_LOST){
+            currentGameState = GAME_STATE_FINAL;
+            Intent intent = new Intent(context, GameLostActivity.class);
+            context.startActivity(intent);
+            context.finish();
         }
     }
 
@@ -118,7 +130,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         countDownTimer = new CountDownTimer(difficultyTimerInterval * 1000, interval) {
             public void onTick(long millisUntilFinished) {
                 // Score increment per tick
-                if(!gamePaused) {
+                if(currentGameState == GAME_STATE_PLAYING) {
                     GameData.hiScoreToStore.addScore(GameData.SCORE_INCREMENT_PER_TICK);
                     spawnObstacle();
                 }
@@ -126,11 +138,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
             public void onFinish() {
                 // Increment speed and difficulty
-                GameData.difficulty++;
-                gameManager.incrementSpeed(2);
-                GameData.hiScoreToStore.addScore(GameData.SCORE_INCREMENT_PER_DIFFICULTY);
-                createBlockMovementCounter();
-                lose();
+                if(currentGameState == GAME_STATE_PLAYING) {
+                    GameData.difficulty++;
+                    gameManager.incrementSpeed(2);
+                    GameData.hiScoreToStore.addScore(GameData.SCORE_INCREMENT_PER_DIFFICULTY);
+                    createBlockMovementCounter();
+                }
             }
         }.start();
     }
@@ -189,17 +202,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 );
     }
 
-    public void lose(){
-        if(!gameIsLost && !showLostWindow) {
-            context.showLoseWindow();
-            showLostWindow = true;
-            gameIsLost = true;
-            gameIsRunning = false;
-        }
-    }
-
     public void pause(boolean pause){
-        gamePaused = pause;
+        if(currentGameState != GAME_STATE_LOST) {
+            setGameState((pause) ? GAME_STATE_PAUSED : GAME_STATE_PLAYING);
+            gamePaused = pause;
+        }
     }
 
     public boolean gameIsPaused(){
@@ -230,7 +237,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-    public boolean getGameIsLost(){
-        return gameIsLost;
+    public void setGameState(int nextGameState){
+        currentGameState = nextGameState;
+    }
+
+    public int getGameState(){
+        return currentGameState;
     }
 }

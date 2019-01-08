@@ -35,6 +35,9 @@
         <activity android:name="com.game.twinghosts.elementalclimber.Activities.GameActivity" >
 >
         </activity>
+        <activity android:name="com.game.twinghosts.elementalclimber.Activities.GameLostActivity" >
+>
+        </activity>
     </application>
 
 </manifest>

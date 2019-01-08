@@ -49,8 +49,8 @@ public class Player extends GameObject {
 
     private void collisionDetection(List<BaseObstacle> obstacles){
         for(BaseObstacle obstacle : obstacles){
-            if(obstacle.collisionRectangle.intersects(collisionRectangle.left, collisionRectangle.top, collisionRectangle.right, collisionRectangle.bottom)){
-                scene.lose();
+            if( scene.getGameState() == GameView.GAME_STATE_PLAYING && obstacle.collisionRectangle.intersects(collisionRectangle.left, collisionRectangle.top, collisionRectangle.right, collisionRectangle.bottom)){
+                scene.setGameState(GameView.GAME_STATE_LOST);
             }
         }
     }

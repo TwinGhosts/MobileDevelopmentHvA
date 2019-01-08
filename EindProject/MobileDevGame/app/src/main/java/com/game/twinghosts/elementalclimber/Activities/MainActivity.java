@@ -8,6 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.game.twinghosts.elementalclimber.Data.SoundPlayer;
 import com.game.twinghosts.elementalclimber.R;
 
 public class MainActivity extends Activity {
@@ -26,6 +27,7 @@ public class MainActivity extends Activity {
         buttonNewGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SoundPlayer.playButtonClickSound(getBaseContext());
                 startActivity(new Intent(MainActivity.this, GameActivity.class));
             }
         });
@@ -34,6 +36,7 @@ public class MainActivity extends Activity {
         buttonHighScore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SoundPlayer.playButtonClickSound(getBaseContext());
                 startActivity(new Intent(MainActivity.this, HighScoreActivity.class));
             }
         });
@@ -42,6 +45,7 @@ public class MainActivity extends Activity {
         buttonQuit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SoundPlayer.playButtonClickSound(getBaseContext());
                 finish();
                 System.exit(0);
             }

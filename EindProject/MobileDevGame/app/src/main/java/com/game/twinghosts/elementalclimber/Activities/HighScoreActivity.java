@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.game.twinghosts.elementalclimber.Data.DataTransfer;
+import com.game.twinghosts.elementalclimber.Data.SoundPlayer;
 import com.game.twinghosts.elementalclimber.Fragments.HiScoreFragment;
 import com.game.twinghosts.elementalclimber.R;
 
@@ -46,6 +47,7 @@ public class HighScoreActivity extends FragmentActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SoundPlayer.playButtonClickSound(getBaseContext());
                 Intent mainMenuIntent = new Intent(HighScoreActivity.this, MainActivity.class);
                 startActivity(mainMenuIntent);
                 finish();
@@ -56,6 +58,7 @@ public class HighScoreActivity extends FragmentActivity {
         previousScoresButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SoundPlayer.playButtonClickSound(getBaseContext());
                 changeScoreFragment(currentHiScoreIndex-1);
             }
         });
@@ -64,6 +67,7 @@ public class HighScoreActivity extends FragmentActivity {
         nextScoresButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SoundPlayer.playButtonClickSound(getBaseContext());
                 changeScoreFragment(currentHiScoreIndex+1);
             }
         });

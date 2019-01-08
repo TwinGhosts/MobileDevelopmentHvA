@@ -26,6 +26,9 @@
 
         <activity android:name=".Activities.GameActivity">>
         </activity>
+
+        <activity android:name=".Activities.GameLostActivity">>
+        </activity>
     </application>
 
 </manifest>

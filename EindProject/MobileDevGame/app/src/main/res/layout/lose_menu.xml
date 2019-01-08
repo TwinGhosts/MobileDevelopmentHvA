@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/transparent_black">
+    android:background="@color/main_menu_background">
 
     <TextView
         android:id="@+id/text_lose_title"
@@ -90,7 +90,6 @@
 
     <EditText
         android:id="@+id/name_input"
-        android:focusedByDefault="false"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="32dp"
@@ -99,6 +98,7 @@
         android:background="@color/button_color_transparent"
         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
         android:ems="10"
+        android:focusedByDefault="false"
         android:inputType="textPersonName"
         android:maxLength="12"
         android:paddingStart="8dp"
