@@ -19,6 +19,7 @@ import com.game.twinghosts.elementalclimber.Data.GameData;
 import com.game.twinghosts.elementalclimber.Data.GameManager;
 import com.game.twinghosts.elementalclimber.Data.HiScore;
 import com.game.twinghosts.elementalclimber.GameObjects.Obstacles.BlockObstacle;
+import com.game.twinghosts.elementalclimber.GameObjects.Obstacles.MovingBlockObstacle;
 import com.game.twinghosts.elementalclimber.GameObjects.Player;
 import com.game.twinghosts.elementalclimber.GameObjects.Obstacles.BaseObstacle;
 import com.game.twinghosts.elementalclimber.R;
@@ -150,13 +151,16 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private void spawnObstacle(){
         Random random = new Random();
+        boolean blockType = random.nextBoolean();
         boolean spawnTop = (random.nextInt(2) == 0);
         int stageHeightDifference = GameData.floorHeight - GameData.ceilingHeight;
         int objectHeight = stageHeightDifference / (2 + random.nextInt(10));
         int objectWidth = (int)GameData.BLOCK_SIZE;
         int spawnPositionY = (spawnTop) ? GameData.floorHeight - objectHeight/2 : GameData.ceilingHeight + objectHeight/2;
 
-        BaseObstacle newObstacle = new BlockObstacle((int)screenSize.x, spawnPositionY, new Vector2(objectWidth, objectHeight));
+        BaseObstacle newObstacle = (blockType) ?
+                new BlockObstacle((int)screenSize.x, spawnPositionY, new Vector2(objectWidth, objectHeight), Color.RED) :
+                new MovingBlockObstacle((int)screenSize.x, screenSize.y/2, new Vector2(objectWidth, objectHeight), Color.YELLOW, 2 + random.nextInt(8));
         gameManager.obstacles.add(newObstacle);
 
         GameData.hiScoreToStore.addScore(GameData.SCORE_INCREMENT_PER_BLOCK);
@@ -169,11 +173,16 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         canvas.drawLine(0, GameData.floorHeight, screenSize.x, GameData.floorHeight, paint);
         canvas.drawLine(0, GameData.ceilingHeight, screenSize.x, GameData.ceilingHeight, paint);
         canvas.drawLine(0, GameData.ceilingHeight - offset, screenSize.x, GameData.ceilingHeight - offset, paint);
+
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(getResources().getColor(R.color.transparent_pink));
+        canvas.drawRect(0,0, (int)screenSize.x, GameData.ceilingHeight, paint);
+        canvas.drawRect(0,GameData.floorHeight, (int)screenSize.x, (int)screenSize.y, paint);
     }
 
     private void drawObstacles(Canvas canvas){
         for(BaseObstacle tile : gameManager.obstacles){
-            paint.setColor(Color.RED);
+            paint.setColor(tile.getColor());
             paint.setStyle(Paint.Style.STROKE);
 
             tile.setCollisionRectangle();

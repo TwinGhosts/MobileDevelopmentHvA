@@ -74,8 +74,6 @@ public class GameLostActivity extends Activity {
                     public void onClick(View view) {
                         SoundPlayer.playButtonClickSound(context);
                         finish();
-                        Intent mainMenuIntent = new Intent(GameLostActivity.this, MainActivity.class);
-                        startActivity(mainMenuIntent);
                     }
                 }
         );

@@ -2676,7 +2676,7 @@ public final class R {
      * <tr><td>barrier</td><td>2</td><td></td></tr>
      * <tr><td>chains</td><td>4</td><td></td></tr>
      * <tr><td>dimensions</td><td>8</td><td></td></tr>
-     * <tr><td>direct</td><td>1</td><td>direct, barriers, chains</td></tr>
+     * <tr><td>direct</td><td>1</td><td></td></tr>
      * <tr><td>groups</td><td>20</td><td></td></tr>
      * <tr><td>none</td><td>0</td><td></td></tr>
      * <tr><td>standard</td><td>7</td><td></td></tr>
@@ -4338,6 +4338,7 @@ public final class R {
     public static final int tooltip_background_dark=0x7f050083;
     public static final int tooltip_background_light=0x7f050084;
     public static final int transparent_black=0x7f050085;
+    public static final int transparent_pink=0x7f050086;
   }
   public static final class dimen {
     public static final int abc_action_bar_content_inset_material=0x7f060000;
@@ -4999,8 +5000,9 @@ public final class R {
     public static final int support_simple_spinner_dropdown_item=0x7f0b003c;
   }
   public static final class mipmap {
-    public static final int ic_launcher=0x7f0c0000;
-    public static final int ic_launcher_round=0x7f0c0001;
+    public static final int cc_icon=0x7f0c0000;
+    public static final int ic_launcher=0x7f0c0001;
+    public static final int ic_launcher_round=0x7f0c0002;
   }
   public static final class raw {
     public static final int button_click=0x7f0d0000;
@@ -11581,7 +11583,7 @@ public final class R {
      * <tr><td>barrier</td><td>2</td><td></td></tr>
      * <tr><td>chains</td><td>4</td><td></td></tr>
      * <tr><td>dimensions</td><td>8</td><td></td></tr>
-     * <tr><td>direct</td><td>1</td><td>direct, barriers, chains</td></tr>
+     * <tr><td>direct</td><td>1</td><td></td></tr>
      * <tr><td>groups</td><td>20</td><td></td></tr>
      * <tr><td>none</td><td>0</td><td></td></tr>
      * <tr><td>standard</td><td>7</td><td></td></tr>

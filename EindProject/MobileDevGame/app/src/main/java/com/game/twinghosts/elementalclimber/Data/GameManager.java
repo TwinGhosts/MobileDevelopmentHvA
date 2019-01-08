@@ -53,7 +53,7 @@ public class GameManager {
                 break;
         }
 
-        return new BlockObstacle(image);
+        return null;
     }
 
     public void updateObstacles(){
@@ -61,6 +61,7 @@ public class GameManager {
             for (int i = obstacles.size() - 1; i >= 0; i--) {
                 BaseObstacle obstacle = obstacles.get(i);
                 obstacle.position.x -= speed;
+                obstacle.executeBehaviour();
 
                 if (obstacle.position.x < 0) {
                     obstacles.remove(obstacle);

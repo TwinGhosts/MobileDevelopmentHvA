@@ -1,5 +1,6 @@
 package com.game.twinghosts.elementalclimber.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -36,6 +37,8 @@ public class HighScoreActivity extends FragmentActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
+        final Context context = this;
+
         // Set the control view
         setContentView(R.layout.activity_hi_score);
 
@@ -47,9 +50,7 @@ public class HighScoreActivity extends FragmentActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SoundPlayer.playButtonClickSound(getBaseContext());
-                Intent mainMenuIntent = new Intent(HighScoreActivity.this, MainActivity.class);
-                startActivity(mainMenuIntent);
+                SoundPlayer.playButtonClickSound(context);
                 finish();
             }
         });
@@ -58,7 +59,7 @@ public class HighScoreActivity extends FragmentActivity {
         previousScoresButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SoundPlayer.playButtonClickSound(getBaseContext());
+                SoundPlayer.playButtonClickSound(context);
                 changeScoreFragment(currentHiScoreIndex-1);
             }
         });
@@ -67,7 +68,7 @@ public class HighScoreActivity extends FragmentActivity {
         nextScoresButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SoundPlayer.playButtonClickSound(getBaseContext());
+                SoundPlayer.playButtonClickSound(context);
                 changeScoreFragment(currentHiScoreIndex+1);
             }
         });

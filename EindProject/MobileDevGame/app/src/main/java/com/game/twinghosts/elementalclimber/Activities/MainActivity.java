@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
         buttonNewGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SoundPlayer.playButtonClickSound(getBaseContext());
+                SoundPlayer.playButtonClickSound(getApplicationContext());
                 startActivity(new Intent(MainActivity.this, GameActivity.class));
             }
         });
@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
         buttonHighScore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SoundPlayer.playButtonClickSound(getBaseContext());
+                SoundPlayer.playButtonClickSound(getApplicationContext());
                 startActivity(new Intent(MainActivity.this, HighScoreActivity.class));
             }
         });
@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
         buttonQuit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SoundPlayer.playButtonClickSound(getBaseContext());
+                SoundPlayer.playButtonClickSound(getApplicationContext());
                 finish();
                 System.exit(0);
             }

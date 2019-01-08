@@ -72,7 +72,7 @@ public class GameActivity extends Activity {
     @Override
     public void onBackPressed() {
         // Show menu to ask whether the player wants to quit or resume
-        SoundPlayer.playButtonClickSound(getBaseContext());
+        SoundPlayer.playButtonClickSound(getApplicationContext());
         if(gameView.getGameState() == GameView.GAME_STATE_PLAYING || gameView.getGameState() == GameView.GAME_STATE_PAUSED) {
             if (!gameView.gameIsPaused()) {
                 Display display = getWindowManager().getDefaultDisplay();
@@ -101,7 +101,7 @@ public class GameActivity extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        SoundPlayer.playButtonClickSound(getBaseContext());
+                        SoundPlayer.playButtonClickSound(getApplicationContext());
                         gameView.pause(false);
                         pausePopup.dismiss();
                     }
@@ -112,10 +112,8 @@ public class GameActivity extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        SoundPlayer.playButtonClickSound(getBaseContext());
-                        Intent mainMenuIntent = new Intent(GameActivity.this, MainActivity.class);
+                        SoundPlayer.playButtonClickSound(getApplicationContext());
                         finish();
-                        startActivity(mainMenuIntent);
                     }
                 }
         );

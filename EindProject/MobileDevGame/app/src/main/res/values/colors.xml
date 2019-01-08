@@ -7,4 +7,5 @@
     <color name="button_color_main">#ff00cd</color>
     <color name="transparent_black">#bf000000</color>
     <color name="button_color_transparent">#367220fe</color>
+    <color name="transparent_pink">#39ff00cd</color>
 </resources>
