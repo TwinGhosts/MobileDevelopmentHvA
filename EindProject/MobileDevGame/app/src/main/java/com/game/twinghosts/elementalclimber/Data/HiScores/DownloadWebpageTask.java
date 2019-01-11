@@ -1,4 +1,4 @@
-package com.game.twinghosts.elementalclimber.Data;
+package com.game.twinghosts.elementalclimber.Data.HiScores;
 
 import android.os.AsyncTask;
 

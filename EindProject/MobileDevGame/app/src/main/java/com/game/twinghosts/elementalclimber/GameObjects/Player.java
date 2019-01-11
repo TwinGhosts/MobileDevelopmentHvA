@@ -1,7 +1,7 @@
 package com.game.twinghosts.elementalclimber.GameObjects;
 
-import com.game.twinghosts.elementalclimber.Data.GameData;
-import com.game.twinghosts.elementalclimber.Data.GameManager;
+import com.game.twinghosts.elementalclimber.Data.InGame.GameData;
+import com.game.twinghosts.elementalclimber.Data.InGame.GameManager;
 import com.game.twinghosts.elementalclimber.GameObjects.Obstacles.BaseObstacle;
 import com.game.twinghosts.elementalclimber.Utility.Vector2;
 import com.game.twinghosts.elementalclimber.Activities.*;

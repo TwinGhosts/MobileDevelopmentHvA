@@ -14,8 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.game.twinghosts.elementalclimber.Data.DataTransfer;
-import com.game.twinghosts.elementalclimber.Data.GameData;
-import com.game.twinghosts.elementalclimber.Data.SoundPlayer;
+import com.game.twinghosts.elementalclimber.Data.InGame.GameData;
+import com.game.twinghosts.elementalclimber.Data.InGame.SoundPlayer;
 import com.game.twinghosts.elementalclimber.R;
 
 public class GameLostActivity extends Activity {

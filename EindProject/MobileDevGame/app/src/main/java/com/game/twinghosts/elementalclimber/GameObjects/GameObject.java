@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
-import com.game.twinghosts.elementalclimber.Data.GameData;
 import com.game.twinghosts.elementalclimber.Utility.Vector2;
 
 public class GameObject {

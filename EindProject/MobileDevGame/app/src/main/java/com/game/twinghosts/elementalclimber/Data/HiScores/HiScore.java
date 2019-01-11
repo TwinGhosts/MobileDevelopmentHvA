@@ -1,8 +1,25 @@
-package com.game.twinghosts.elementalclimber.Data;
+package com.game.twinghosts.elementalclimber.Data.HiScores;
 
-public class HiScore {
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
+import com.game.twinghosts.elementalclimber.Data.CustomDate;
+
+import java.io.Serializable;
+
+@Entity(tableName = "hiScore")
+public class HiScore implements Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    private long id;
+
+    @ColumnInfo(name = "name")
     private String name;
+
+    @ColumnInfo(name = "score")
     private int score;
+
     private CustomDate date;
 
     public HiScore(String name, int score){
@@ -36,5 +53,12 @@ public class HiScore {
 
     public void addScore(int value){
         score += value;
+    }
+
+    public long getId() {
+        return id;
+    }
+    public void setId(long id) {
+        this.id = id;
     }
 }

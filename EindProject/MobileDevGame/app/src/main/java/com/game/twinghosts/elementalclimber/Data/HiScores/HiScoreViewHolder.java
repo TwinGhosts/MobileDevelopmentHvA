@@ -1,4 +1,4 @@
-package com.game.twinghosts.elementalclimber.Data;
+package com.game.twinghosts.elementalclimber.Data.HiScores;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

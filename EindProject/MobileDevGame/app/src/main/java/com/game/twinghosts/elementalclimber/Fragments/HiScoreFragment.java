@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 
 import com.game.twinghosts.elementalclimber.Callbacks.AsyncResult;
 import com.game.twinghosts.elementalclimber.Data.DataTransfer;
-import com.game.twinghosts.elementalclimber.Data.DownloadWebpageTask;
-import com.game.twinghosts.elementalclimber.Data.HiScore;
-import com.game.twinghosts.elementalclimber.Data.HiScoreRecycleAdapter;
+import com.game.twinghosts.elementalclimber.Data.HiScores.DownloadWebpageTask;
+import com.game.twinghosts.elementalclimber.Data.HiScores.HiScore;
+import com.game.twinghosts.elementalclimber.Data.HiScores.HiScoreRecycleAdapter;
 import com.game.twinghosts.elementalclimber.R;
 
 import org.json.JSONArray;

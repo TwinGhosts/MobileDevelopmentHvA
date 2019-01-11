@@ -1,4 +1,4 @@
-package com.game.twinghosts.elementalclimber.Data;
+package com.game.twinghosts.elementalclimber.Data.InGame;
 
 import android.content.Context;
 import android.media.MediaPlayer;

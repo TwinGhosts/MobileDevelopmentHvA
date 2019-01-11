@@ -1,7 +1,6 @@
 package com.game.twinghosts.elementalclimber.Activities;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
@@ -17,7 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
 
-import com.game.twinghosts.elementalclimber.Data.SoundPlayer;
+import com.game.twinghosts.elementalclimber.Data.InGame.SoundPlayer;
 import com.game.twinghosts.elementalclimber.R;
 
 public class GameActivity extends Activity {

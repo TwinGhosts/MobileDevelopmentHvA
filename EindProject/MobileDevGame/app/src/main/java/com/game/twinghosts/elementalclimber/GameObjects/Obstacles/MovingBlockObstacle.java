@@ -1,6 +1,6 @@
 package com.game.twinghosts.elementalclimber.GameObjects.Obstacles;
 
-import com.game.twinghosts.elementalclimber.Data.GameData;
+import com.game.twinghosts.elementalclimber.Data.InGame.GameData;
 import com.game.twinghosts.elementalclimber.Utility.Vector2;
 
 public class MovingBlockObstacle extends BaseObstacle {

@@ -1,9 +1,7 @@
 package com.game.twinghosts.elementalclimber.Activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -15,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.game.twinghosts.elementalclimber.Data.DataTransfer;
-import com.game.twinghosts.elementalclimber.Data.SoundPlayer;
+import com.game.twinghosts.elementalclimber.Data.InGame.SoundPlayer;
 import com.game.twinghosts.elementalclimber.Fragments.HiScoreFragment;
 import com.game.twinghosts.elementalclimber.R;
 

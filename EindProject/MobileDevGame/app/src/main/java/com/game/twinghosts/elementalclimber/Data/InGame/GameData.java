@@ -1,4 +1,6 @@
-package com.game.twinghosts.elementalclimber.Data;
+package com.game.twinghosts.elementalclimber.Data.InGame;
+
+import com.game.twinghosts.elementalclimber.Data.HiScores.HiScore;
 
 public class GameData {
     public static final float BLOCK_SIZE = 64;

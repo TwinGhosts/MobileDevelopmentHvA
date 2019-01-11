@@ -13,7 +13,9 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.game.twinghosts.elementalclimber.Activities.HighScoreActivity;
+import com.game.twinghosts.elementalclimber.Activities.MainActivity;
+import com.game.twinghosts.elementalclimber.Data.HiScores.HiScore;
+import com.game.twinghosts.elementalclimber.Data.LocalStorage.AppDatabase;
 import com.game.twinghosts.elementalclimber.R;
 
 import java.util.ArrayList;
@@ -33,6 +35,13 @@ public class DataTransfer {
     public static final int SORTING_MONTH = 1;
     public static final int SORTING_TODAY = 2;
 
+    public final static int TASK_GET_ALL_GAMES = 0;
+    public final static int TASK_DELETE_GAMES = 1;
+    public final static int TASK_UPDATE_GAMES = 2;
+    public final static int TASK_INSERT_GAMES = 3;
+
+    public static AppDatabase database;
+
     /**
      * Method where data is transferred from the app to the google sheet by using HTTP Rest API calls
      */
@@ -41,6 +50,7 @@ public class DataTransfer {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        new MainActivity.HiScoreAsyncTask(DataTransfer.TASK_INSERT_GAMES).execute(hiScore);
                         Toast.makeText(context, R.string.toast_added_hi_score, Toast.LENGTH_SHORT).show();
                     }
                 },

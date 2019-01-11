@@ -1,4 +1,4 @@
-package com.game.twinghosts.elementalclimber.Data;
+package com.game.twinghosts.elementalclimber.Data.HiScores;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
