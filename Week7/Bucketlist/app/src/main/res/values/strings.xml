@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Bucket List</string>
+    <string name="action_settings">Settings</string>
+    <string name="fill_all_fields">Can\'t have empty fields!</string>
+    <string name="bucket_deleted">Item Deleted!</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+</resources>
+
