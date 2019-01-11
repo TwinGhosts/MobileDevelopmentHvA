@@ -14,13 +14,15 @@ import com.game.twinghosts.elementalclimber.Data.DataTransfer;
 import com.game.twinghosts.elementalclimber.Data.HiScores.HiScore;
 import com.game.twinghosts.elementalclimber.Data.InGame.GameData;
 import com.game.twinghosts.elementalclimber.Data.InGame.SoundPlayer;
+import com.game.twinghosts.elementalclimber.Data.LocalStorage.AppDatabase;
 import com.game.twinghosts.elementalclimber.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends Activity {
 
-    private List<HiScore> personalHiScores;
+    private List<HiScore> personalHiScores = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +34,17 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main_menu);
 
+        DataTransfer.database = AppDatabase.getInstance(this);
+
         new HiScoreAsyncTask(DataTransfer.TASK_GET_ALL_GAMES).execute();
         personalHiScores = DataTransfer.database.hiScoreDAO().getAllHiScoresOrderedByDesc();
 
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>> " + personalHiScores.size());
+
         TextView previousScoreText = findViewById(R.id.previous_score_view);
         if(!personalHiScores.isEmpty()){
-            previousScoreText.setText(R.string.your_personal_best_score + personalHiScores.get(0).getScore());
+            String text = getString(R.string.your_personal_best_score) + personalHiScores.get(0).getScore();
+            previousScoreText.setText( text );
         } else {
             previousScoreText.setText(R.string.no_scores_yet);
         }

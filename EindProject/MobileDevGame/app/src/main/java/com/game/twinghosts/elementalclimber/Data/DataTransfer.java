@@ -40,6 +40,8 @@ public class DataTransfer {
     public final static int TASK_UPDATE_GAMES = 2;
     public final static int TASK_INSERT_GAMES = 3;
 
+    public final static int END_GAME_REQUEST = 100;
+
     public static AppDatabase database;
 
     /**

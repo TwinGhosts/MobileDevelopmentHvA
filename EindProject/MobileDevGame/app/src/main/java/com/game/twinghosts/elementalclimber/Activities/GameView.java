@@ -14,6 +14,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.game.twinghosts.elementalclimber.Data.DataTransfer;
 import com.game.twinghosts.elementalclimber.Data.InGame.GameData;
 import com.game.twinghosts.elementalclimber.Data.InGame.GameManager;
 import com.game.twinghosts.elementalclimber.Data.HiScores.HiScore;
@@ -105,7 +106,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if(currentGameState == GAME_STATE_LOST){
             currentGameState = GAME_STATE_FINAL;
             Intent intent = new Intent(context, GameLostActivity.class);
-            context.startActivity(intent);
+            context.startActivityForResult(intent, DataTransfer.END_GAME_REQUEST);
             context.finish();
         }
     }
@@ -153,7 +154,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         boolean blockType = random.nextBoolean();
         boolean spawnTop = (random.nextInt(2) == 0);
         int stageHeightDifference = GameData.floorHeight - GameData.ceilingHeight;
-        int objectHeight = stageHeightDifference / (2 + random.nextInt(10));
+        int objectHeight = stageHeightDifference / (4 + random.nextInt(10));
         int objectWidth = (int)GameData.BLOCK_SIZE;
         int spawnPositionY = (spawnTop) ? GameData.floorHeight - objectHeight/2 : GameData.ceilingHeight + objectHeight/2;
 

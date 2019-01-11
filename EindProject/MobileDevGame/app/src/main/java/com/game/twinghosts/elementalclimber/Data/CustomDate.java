@@ -1,9 +1,11 @@
 package com.game.twinghosts.elementalclimber.Data;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public class CustomDate {
+
+public class CustomDate implements Serializable {
     private int day, month, year;
 
     public CustomDate(int day, int month, int year){
